@@ -1,0 +1,31 @@
+[package]
+name = "wav2vec2-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CLI and OpenAI-compatible HTTP server for wav2vec2"
+
+[[bin]]
+name = "wav2vec2"
+path = "src/main.rs"
+
+[features]
+default = []
+cuda = ["wav2vec2/cuda", "candle-core/cuda"]
+metal = ["wav2vec2/metal", "candle-core/metal"]
+
+[dependencies]
+wav2vec2 = { path = "../wav2vec2" }
+candle-core.workspace = true
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+clap = { version = "4.5", features = ["derive", "env"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+axum = { version = "0.7", features = ["multipart"] }
+tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+serde_json.workspace = true
